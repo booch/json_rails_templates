@@ -53,35 +53,18 @@ this template:
     integer_expression: 1 + 2
     float_expression: Math::PI * 2
     boolean_expression: 'Craig' == 'Buchek'
-    array_literal: ['string', 123, 1.234, false]
-    hash_literal: {'key1': 'value 1', key2: 'value 2', :key3 => 'value 3'}
-    instance_variable: @instance_variable
-    exposed_variable: exposed_variable
 
 will render JSON equivalent to:
 
     {
-      string_literal: 'this is a string',
-      integer_literal: 123,
-      float_literal: 1.234,
-      boolean_literal: true,
-      string_expression: 'this is a String!',
-      integer_expression: 3,
-      float_expression: 6.283185307179586,
-      boolean_expression: false,
-      array_literal: [
-        'string',
-        123,
-        1.234,
-        false
-      ],
-      hash_literal: {
-        key1: 'value 1',
-        key2: 'value 2',
-        key3: 'value 3'
-      },
-      instance_variable: 'instance variable',
-      exposed_variable: 'exposed "variable"',
+      "string_literal": "this is a string",
+      "integer_literal": 123,
+      "float_literal": 1.234,
+      "boolean_literal": true,
+      "string_expression": "this is a String!",
+      "integer_expression": 3,
+      "float_expression": 6.283185307179586,
+      "boolean_expression": false
     }
 
 
@@ -89,6 +72,11 @@ will render JSON equivalent to:
 
 Implement these translations:
 
+1. null
+1. array_literal: ['string', 123, 1.234, false]
+1. hash_literal: {'key1': 'value 1', key2: 'value 2', :key3 => 'value 3'}
+1. instance_variable: @instance_variable
+1. exposed_variable: exposed_variable
 1. array expression
 1. hash expression
 1. object
@@ -99,6 +87,7 @@ Implement these translations:
 
 Consider these ideas:
 
+1. Allow (or require) commas at end of each line.
 1. Use ``as_json`` where available for objects when there is no partial.
 1. Translate dates/times to strings automatically.
 1. Generate an error when encountering a date/time expression.
