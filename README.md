@@ -49,12 +49,12 @@ this template:
     integer_literal: 123
     float_literal: 1.234
     boolean_literal: true
-    array_literal: ['string', 123, 1.234, false]
-    hash_literal: {'key1': 'value 1', key2: 'value 2', :key3 => 'value 3'}
-    string_expression: string.gsub('string', 'String!')
+    string_expression: 'this is a string'.gsub('string', 'String!')
     integer_expression: 1 + 2
     float_expression: Math::PI * 2
     boolean_expression: 'Craig' == 'Buchek'
+    array_literal: ['string', 123, 1.234, false]
+    hash_literal: {'key1': 'value 1', key2: 'value 2', :key3 => 'value 3'}
     instance_variable: @instance_variable
     exposed_variable: exposed_variable
 
@@ -65,6 +65,10 @@ will render JSON equivalent to:
       integer_literal: 123,
       float_literal: 1.234,
       boolean_literal: true,
+      string_expression: 'this is a String!',
+      integer_expression: 3,
+      float_expression: 6.283185307179586,
+      boolean_expression: false,
       array_literal: [
         'string',
         123,
@@ -76,10 +80,6 @@ will render JSON equivalent to:
         key2: 'value 2',
         key3: 'value 3'
       },
-      string_expression: 'this is a String!',
-      integer_expression: 3,
-      float_expression: 6.283185307179586,
-      boolean_expression: false,
       instance_variable: 'instance variable',
       exposed_variable: 'exposed "variable"',
     }

@@ -17,10 +17,10 @@ private
     right = eval(right.strip)
     right = case right
             when String
-              %('#{right}')
+              %("#{right}")
             when Integer, Float, TrueClass, FalseClass
               right.to_s
             end
-    "#{left}: #{right}"
+    %("#{left}": #{right})
   end
 end
