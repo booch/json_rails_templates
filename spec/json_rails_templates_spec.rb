@@ -29,5 +29,25 @@ describe 'JsonRailsTemplates' do
       let(:template_text) { %(boolean_literal: false\ninteger_literal: 1) }
       it { should == %({boolean_literal: false,\ninteger_literal: 1}) }
     end
+
+    context 'for a string expression' do
+      let(:template_text) { %(string_expression: 'this is a string'.gsub('string', 'String!')) }
+      it { should == %({string_expression: 'this is a String!'}) }
+    end
+
+    context 'for an integer expression' do
+      let(:template_text) { %(integer_expression: 1 + 2) }
+      it { should == %({integer_expression: 3}) }
+    end
+
+    context 'for a float expression' do
+      let(:template_text) { %(float_expression: Math::PI * 2) }
+      it { should == %({float_expression: 6.283185307179586}) }
+    end
+
+    context 'for a boolean expression' do
+      let(:template_text) { %(boolean_expression: 'Craig' == 'Buchek') }
+      it { should == %({boolean_expression: false}) }
+    end
   end
 end
