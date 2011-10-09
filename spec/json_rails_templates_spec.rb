@@ -64,5 +64,31 @@ describe 'JsonRailsTemplates' do
       let(:template_text) { %(boolean_literal: false\ninteger_literal: 1) }
       it { should == %({"boolean_literal": false,\n"integer_literal": 1}) }
     end
+
+    context 'everything put together' do
+      let(:template_text) {%(string_literal: 'this is a string'
+        string_expression: 'this is a string'.gsub('string', 'String!')
+        integer_literal: 123
+        integer_expression: 1 + 2
+        float_literal: 1.234
+        float_expression: Math::PI * 2
+        boolean_literal: true
+        boolean_expression: 'Craig' == 'Buchek'
+        null_literal: nil
+        array_literal: ['string', 123, 1.234, false]
+        array_expression: Array.new(3, 'hello'))}
+      it { should == %({"string_literal": "this is a string",
+"string_expression": "this is a String!",
+"integer_literal": 123,
+"integer_expression": 3,
+"float_literal": 1.234,
+"float_expression": 6.283185307179586,
+"boolean_literal": true,
+"boolean_expression": false,
+"null_literal": null,
+"array_literal": ["string", 123, 1.234, false],
+"array_expression": ["hello", "hello", "hello"]})
+      }
+    end
   end
 end
