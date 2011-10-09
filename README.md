@@ -16,7 +16,7 @@ you have a few options:
    methods. It felt like we were doing too much work in the models that
    did not feel like it belonged there.
 
-1. Use a presenter class.
+2. Use a presenter class.
 
    We tried this as well, and it felt too heavy-handed. We ended up with
    lots of classes that didn't seem to be doing much.
@@ -28,7 +28,7 @@ you have a few options:
    context. So each view would be considered a different context, with an
    ``as_json`` appropriate for that context.
 
-1. Use a JSON view file.
+3. Use a JSON view file.
 
    This seems the simplest, and fits in pretty well with the way Rails
    works, especially with HTML. It takes the (Rails-ish) perspective that
@@ -46,30 +46,30 @@ and ``exposed_variable`` returns ``'exposed "variable"'``,
 this template:
 
     string_literal: 'this is a string'
+    string_expression: 'this is a string'.gsub('string', 'String!')
     integer_literal: 123
+    integer_expression: 1 + 2
     float_literal: 1.234
+    float_expression: Math::PI * 2
     boolean_literal: true
+    boolean_expression: 'Craig' == 'Buchek'
     null_literal: nil
     array_literal: ['string', 123, 1.234, false]
-    string_expression: 'this is a string'.gsub('string', 'String!')
-    integer_expression: 1 + 2
-    float_expression: Math::PI * 2
-    boolean_expression: 'Craig' == 'Buchek'
     array_expression: Array.new(3, 'hello')
 
 will render JSON equivalent to:
 
     {
       "string_literal": "this is a string",
+      "string_expression": "this is a String!",
       "integer_literal": 123,
+      "integer_expression": 3,
       "float_literal": 1.234,
+      "float_expression": 6.283185307179586,
       "boolean_literal": true,
+      "boolean_expression": false,
       "null_literal": null,
       "array_literal": ["string", 123, 1.234, false],
-      "string_expression": "this is a String!",
-      "integer_expression": 3,
-      "float_expression": 6.283185307179586,
-      "boolean_expression": false,
       "array_expression": ["hello", "hello", "hello"]
     }
 
