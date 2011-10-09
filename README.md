@@ -49,6 +49,7 @@ this template:
     integer_literal: 123
     float_literal: 1.234
     boolean_literal: true
+    null_literal: nil
     string_expression: 'this is a string'.gsub('string', 'String!')
     integer_expression: 1 + 2
     float_expression: Math::PI * 2
@@ -59,6 +60,7 @@ will render JSON equivalent to:
     {
       "string_literal": "this is a string",
       "integer_literal": 123,
+      "null_literal": null,
       "float_literal": 1.234,
       "boolean_literal": true,
       "string_expression": "this is a String!",
@@ -72,7 +74,6 @@ will render JSON equivalent to:
 
 Implement these translations:
 
-1. null
 1. array_literal: ['string', 123, 1.234, false]
 1. hash_literal: {'key1': 'value 1', key2: 'value 2', :key3 => 'value 3'}
 1. instance_variable: @instance_variable

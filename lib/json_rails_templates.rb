@@ -20,6 +20,8 @@ private
               %("#{right}")
             when Integer, Float, TrueClass, FalseClass
               right.to_s
+            when NilClass
+              'null'
             end
     %("#{left}": #{right})
   end

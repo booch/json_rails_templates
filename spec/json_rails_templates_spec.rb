@@ -25,6 +25,11 @@ describe 'JsonRailsTemplates' do
       it { should == %({"boolean_literal": true}) }
     end
 
+    context 'for nil' do
+      let(:template_text) { %(null_literal: nil) }
+      it { should == %({"null_literal": null}) }
+    end
+
     context 'for multiple simple literals' do
       let(:template_text) { %(boolean_literal: false\ninteger_literal: 1) }
       it { should == %({"boolean_literal": false,\n"integer_literal": 1}) }
