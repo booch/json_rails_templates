@@ -25,6 +25,11 @@ describe 'JsonRailsTemplates' do
       it { should == %({"boolean_literal": true}) }
     end
 
+    context 'for an array literal' do
+      let(:template_text) { %(array_literal: ['string', 123, 1.234, false]) }
+      it { should == %({"array_literal": ["string", 123, 1.234, false]}) }
+    end
+
     context 'for nil' do
       let(:template_text) { %(null_literal: nil) }
       it { should == %({"null_literal": null}) }
@@ -53,6 +58,11 @@ describe 'JsonRailsTemplates' do
     context 'for a boolean expression' do
       let(:template_text) { %(boolean_expression: 'Craig' == 'Buchek') }
       it { should == %({"boolean_expression": false}) }
+    end
+
+    context 'for an array expression' do
+      let(:template_text) { %(array_expression: Array.new(3, 'hello')) }
+      it { should == %({"array_expression": ["hello", "hello", "hello"]}) }
     end
   end
 end

@@ -15,14 +15,20 @@ private
     left, right = line.split(':', 2)
     left = left.strip
     right = eval(right.strip)
-    right = case right
-            when String
-              %("#{right}")
-            when Integer, Float, TrueClass, FalseClass
-              right.to_s
-            when NilClass
-              'null'
-            end
+    right = one_item_to_json(right)
     %("#{left}": #{right})
+  end
+
+  def one_item_to_json(item)
+    case item
+    when String
+      %("#{item}")
+    when Integer, Float, TrueClass, FalseClass
+      item.to_s
+    when NilClass
+      'null'
+    when Array
+      %([#{item.collect{|sub_item| one_item_to_json(sub_item)}.join(', ')}])
+    end
   end
 end
