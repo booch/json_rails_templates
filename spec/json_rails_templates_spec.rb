@@ -5,6 +5,11 @@ describe 'JsonRailsTemplates' do
     subject { JsonRailsTemplates.new(template_text).to_json }
     let(:template_text) { '' } # NOTE: We'll override this for each spec below.
 
+    context 'for blank lines' do
+      let(:template_text) { "\n\n\n" }
+      it { should == %({}) }
+    end
+
     context 'for a string literal' do
       let(:template_text) { %(string_literal: 'this is a string') }
       it { should == %({"string_literal": "this is a string"}) }
@@ -66,7 +71,8 @@ describe 'JsonRailsTemplates' do
     end
 
     context 'everything put together' do
-      let(:template_text) {%(string_literal: 'this is a string'
+      let(:template_text) {%(
+        string_literal: 'this is a string'
         string_expression: 'this is a string'.gsub('string', 'String!')
         integer_literal: 123
         integer_expression: 1 + 2
@@ -76,7 +82,8 @@ describe 'JsonRailsTemplates' do
         boolean_expression: 'Craig' == 'Buchek'
         null_literal: nil
         array_literal: ['string', 123, 1.234, false]
-        array_expression: Array.new(3, 'hello'))}
+        array_expression: Array.new(3, 'hello')
+      )}
       it { should == %({"string_literal": "this is a string",
 "string_expression": "this is a String!",
 "integer_literal": 123,

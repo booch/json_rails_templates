@@ -1,3 +1,5 @@
+require 'active_support/core_ext/object/blank'
+
 class JsonRailsTemplates
   attr_accessor :template_text
 
@@ -6,7 +8,7 @@ class JsonRailsTemplates
   end
 
   def to_json
-    "{#{template_text.lines.collect{ |line| one_line_to_json(line) }.join(",\n")}}"
+    "{#{template_text.lines.reject{|line| line.blank?}.collect{ |line| one_line_to_json(line) }.join(",\n")}}"
   end
 
 private
