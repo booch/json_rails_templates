@@ -76,6 +76,9 @@ will render JSON equivalent to:
 
 ## TODO ##
 
+1. Nested objects.
+1. Iterating over an array of objects, specifying how to render each.
+
 Implement these translations:
 
 1. hash_literal: {'key1': 'value 1', key2: 'value 2', :key3 => 'value 3'}
@@ -95,10 +98,10 @@ Consider these ideas:
 1. Translate dates/times to strings automatically.
 1. Generate an error when encountering a date/time expression.
 1. Generate an error when encountering an object with no partial or ``as_json``.
-    a. May try ``to_json`` or ``to_hash`` as well.
+    - May try ``to_json`` or ``to_hash`` as well.
 1. Require or allow {} or [] around the top-level content.
 1. Allow specifying a context, so we can just do ``attribute`` on the right side everywhere instead of ``resource.attribute``.
-    a. Probably use a syntax like ``=object_or_hash``.
+    - Probably use a syntax like ``=object_or_hash``.
 1. Override ``render()`` to return hashes and arrays instead of a string.
 
 
