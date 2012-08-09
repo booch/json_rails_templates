@@ -14,8 +14,6 @@ Gem::Specification.new do |s|
 
   s.rubyforge_project = "json_rails_templates"
 
-  s.add_dependency 'activesupport', '~> 3.0.10'
-
   s.add_development_dependency 'rspec', '~> 2.6.0'
 
   s.files         = `git ls-files`.split("\n")
