@@ -1,4 +1,6 @@
 class JsonRailsTemplates
+  NON_WHITESPACE_REGEXP = %r![^\s#{[0x3000].pack("U")}]!  # 0x3000 = fullwidth whitespace (stolen from ActiveSupport)
+
   attr_accessor :template_text
 
   def initialize(template_text)
@@ -6,7 +8,7 @@ class JsonRailsTemplates
   end
 
   def to_json
-    "{#{template_text.lines.reject{|line| line.empty?}.collect{ |line| one_line_to_json(line) }.join(",\n")}}"
+    "{#{template_text.lines.reject{|line| line !~ NON_WHITESPACE_REGEXP}.collect{ |line| one_line_to_json(line) }.join(",\n")}}"
   end
 
 private
