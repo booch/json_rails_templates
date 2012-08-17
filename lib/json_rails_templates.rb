@@ -18,20 +18,19 @@ class JsonRailsTemplates
   # If you have a Ruby method with 10 lines, you probably missed some. -- Craig Buchek
   def to_hash
     {}.tap do |hash|
-      nesting_depth = 0
+      nesting_level = 0
       nested_hashes = []
       template_lines.each do |line|
-        indentation = line.match(WHITESPACE_REGEXP).to_s.size
-        (nesting_depth - indentation / 2).times do
+        (nesting_level - indentation_level(line)).times do
           hash = nested_hashes.pop
-          nesting_depth -= 1
+          nesting_level -= 1
         end
         left, right = line.split(':', 2)
         if right.strip.empty?
           hash[left.strip] = {}
           nested_hashes.push(hash)
           hash = hash[left.strip]
-          nesting_depth += 1
+          nesting_level += 1
         else
           hash[left.strip] = eval(right)
         end
@@ -41,5 +40,15 @@ class JsonRailsTemplates
 
   def template_lines
     template_text.lines.reject{|line| line !~ NON_WHITESPACE_REGEXP}
+  end
+
+  def indentation_level(line)
+    leading_whitespace = line.match(WHITESPACE_REGEXP).to_s
+    leading_spaces = line.match('[ ]*').to_s
+
+    raise 'Must use only spaces for indentation' if leading_whitespace != leading_spaces
+    raise 'Must use 2 spaces for indentation' if leading_spaces.size.odd?
+
+    leading_spaces.size / 2
   end
 end

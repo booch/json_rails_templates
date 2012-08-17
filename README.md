@@ -82,6 +82,11 @@ will render JSON equivalent to (ignoring whitespace differences):
     }
 
 
+## Notes ##
+
+* Nesting levels are indicated by 2 spaces. Indenting with non-space whitespace characters or an odd number of spaces will raise an exception.
+
+
 ## TODO ##
 
 1. Iterating over an array of objects, specifying how to render each.
@@ -124,5 +129,6 @@ project along with Matt Simpson, Helena Wotring, and Nick Bimpasis.
 ## Copyright ##
 
 Copyright © 2011 by BoochTek, LLC.
+Copyright © 2012 by Asynchrony Solutions, LLC.
 
 Released under the MIT license.

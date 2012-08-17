@@ -86,6 +86,20 @@ describe 'JsonRailsTemplates' do
 }) }
     end
 
+    context 'using tabs for indenting' do
+      let(:template_text) { %(nested_contexts:\n\t\tchild:\n\t\tgrandchild: 1\n) }
+      it 'raises an exception' do
+        expect { subject }.to raise_exception
+      end
+    end
+
+    context 'using an odd number of spaces for indenting' do
+      let(:template_text) { %(nested_contexts:\n   child:\n    grandchild: 1\n) }
+      it 'raises an exception' do
+        expect { subject }.to raise_exception
+      end
+    end
+
     context 'for multiple simple literals' do
       let(:template_text) { %(boolean_literal: false\ninteger_literal: 1) }
       it { should == %({\n  "boolean_literal": false,\n  "integer_literal": 1\n}) }
