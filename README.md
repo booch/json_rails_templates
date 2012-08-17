@@ -78,6 +78,8 @@ will render JSON equivalent to:
 
 1. Nested objects.
 1. Iterating over an array of objects, specifying how to render each.
+1. Compile templates instead of using `eval`.
+1. Integrate with tilt.
 
 Implement these translations:
 
