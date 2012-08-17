@@ -27,10 +27,16 @@ private
       %("#{item}")
     when Integer, Float, TrueClass, FalseClass
       item.to_s
+    when Hash
+      hash_to_json(item)
     when NilClass
       'null'
     when Array
       %([#{item.collect{|sub_item| one_item_to_json(sub_item)}.join(', ')}])
     end
+  end
+
+  def hash_to_json(hash)
+    '{' + hash.map{|key, value| %("#{key.to_s}": #{one_item_to_json(value)})}.join(', ') + '}'
   end
 end

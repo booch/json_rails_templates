@@ -56,6 +56,7 @@ this template:
     null_literal: nil
     array_literal: ['string', 123, 1.234, false]
     array_expression: Array.new(3, 'hello')
+    hash_literal: {a: 1, b: '2', 'c' => 3}
 
 will render JSON equivalent to:
 
@@ -70,7 +71,8 @@ will render JSON equivalent to:
       "boolean_expression": false,
       "null_literal": null,
       "array_literal": ["string", 123, 1.234, false],
-      "array_expression": ["hello", "hello", "hello"]
+      "array_expression": ["hello", "hello", "hello"],
+      "hash_literal": { "a": 1, "b": "2", "c": 3 }
     }
 
 
@@ -83,7 +85,6 @@ will render JSON equivalent to:
 
 Implement these translations:
 
-1. hash_literal: {'key1': 'value 1', key2: 'value 2', :key3 => 'value 3'}
 1. instance_variable: @instance_variable
 1. exposed_variable: exposed_variable
 1. hash expression

@@ -65,6 +65,16 @@ describe 'JsonRailsTemplates' do
       it { should == %({"array_expression": ["hello", "hello", "hello"]}) }
     end
 
+    context 'for a hash literal' do
+      let(:template_text) { %(hash_literal: {a: 1, b: '2', 'c' => 3}) }
+      it { should == %({"hash_literal": {"a": 1, "b": "2", "c": 3}}) }
+    end
+
+    context 'for a hash literal' do
+      let(:template_text) { %(hash_literal: {a: 1, b: '2', 'c' => 3}) }
+      it { should == %({"hash_literal": {"a": 1, "b": "2", "c": 3}}) }
+    end
+
     context 'for multiple simple literals' do
       let(:template_text) { %(boolean_literal: false\ninteger_literal: 1) }
       it { should == %({"boolean_literal": false,\n"integer_literal": 1}) }
@@ -83,6 +93,7 @@ describe 'JsonRailsTemplates' do
         null_literal: nil
         array_literal: ['string', 123, 1.234, false]
         array_expression: Array.new(3, 'hello')
+        hash_literal: {a: 1, b: '2', 'c' => 3}
       )}
       it { should == %({"string_literal": "this is a string",
 "string_expression": "this is a String!",
@@ -94,7 +105,8 @@ describe 'JsonRailsTemplates' do
 "boolean_expression": false,
 "null_literal": null,
 "array_literal": ["string", 123, 1.234, false],
-"array_expression": ["hello", "hello", "hello"]})
+"array_expression": ["hello", "hello", "hello"],
+"hash_literal": {"a": 1, "b": "2", "c": 3}})
       }
     end
   end
