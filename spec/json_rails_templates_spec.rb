@@ -75,6 +75,11 @@ describe 'JsonRailsTemplates' do
       it { should == %({"hash_literal": {"a": 1, "b": "2", "c": 3}}) }
     end
 
+    context 'for a nested hash literal' do
+      let(:template_text) { %(nested_hash_literal: {a: {:b => {'c' => 3}}}) }
+      it { should == %({"nested_hash_literal": {"a": {"b": {"c": 3}}}}) }
+    end
+
     context 'for multiple simple literals' do
       let(:template_text) { %(boolean_literal: false\ninteger_literal: 1) }
       it { should == %({"boolean_literal": false,\n"integer_literal": 1}) }
@@ -94,6 +99,7 @@ describe 'JsonRailsTemplates' do
         array_literal: ['string', 123, 1.234, false]
         array_expression: Array.new(3, 'hello')
         hash_literal: {a: 1, b: '2', 'c' => 3}
+        nested_hash_literal: {a: {:b => {'c' => 3}}}
       )}
       it { should == %({"string_literal": "this is a string",
 "string_expression": "this is a String!",
@@ -106,7 +112,8 @@ describe 'JsonRailsTemplates' do
 "null_literal": null,
 "array_literal": ["string", 123, 1.234, false],
 "array_expression": ["hello", "hello", "hello"],
-"hash_literal": {"a": 1, "b": "2", "c": 3}})
+"hash_literal": {"a": 1, "b": "2", "c": 3},
+"nested_hash_literal": {"a": {"b": {"c": 3}}}})
       }
     end
   end
