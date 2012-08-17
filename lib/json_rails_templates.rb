@@ -1,7 +1,7 @@
 require 'json'
 
 class JsonRailsTemplates
-  NON_WHITESPACE_REGEXP = %r![^\s#{[0x3000].pack("U")}]!  # 0x3000 = fullwidth whitespace (stolen from ActiveSupport)
+  NON_WHITESPACE_REGEXP = %r([^\s#{[0x3000].pack("U")}])  # 0x3000 = full-width whitespace (stolen from ActiveSupport)
 
   attr_accessor :template_text
 
@@ -10,39 +10,16 @@ class JsonRailsTemplates
   end
 
   def to_json
-    JSON.pretty_generate(
-      JSON.parse(
-        "{#{template_text.lines.reject{|line| line !~ NON_WHITESPACE_REGEXP}.collect{ |line| one_line_to_json(line) }.join(",\n")}}"
-      )
-    )
+    JSON.pretty_generate(to_hash)
   end
 
-private
-
-  def one_line_to_json(line)
-    left, right = line.split(':', 2)
-    left = left.strip
-    right = eval(right.strip)
-    right = one_item_to_json(right)
-    %("#{left}": #{right})
-  end
-
-  def one_item_to_json(item)
-    case item
-    when String
-      %("#{item}")
-    when Integer, Float, TrueClass, FalseClass
-      item.to_s
-    when Hash
-      hash_to_json(item)
-    when NilClass
-      'null'
-    when Array
-      %([#{item.collect{|sub_item| one_item_to_json(sub_item)}.join(', ')}])
+  def to_hash
+    attribute_lines = template_text.lines.reject{|line| line !~ NON_WHITESPACE_REGEXP}
+    {}.tap do |hash|
+      attribute_lines.each do |line|
+        left, right = line.split(':', 2)
+        hash[left.strip] = eval(right)
+      end
     end
-  end
-
-  def hash_to_json(hash)
-    '{' + hash.map{|key, value| %("#{key.to_s}": #{one_item_to_json(value)})}.join(', ') + '}'
   end
 end
