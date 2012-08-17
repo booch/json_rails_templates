@@ -1,3 +1,5 @@
+require 'json'
+
 class JsonRailsTemplates
   NON_WHITESPACE_REGEXP = %r![^\s#{[0x3000].pack("U")}]!  # 0x3000 = fullwidth whitespace (stolen from ActiveSupport)
 
@@ -8,7 +10,11 @@ class JsonRailsTemplates
   end
 
   def to_json
-    "{#{template_text.lines.reject{|line| line !~ NON_WHITESPACE_REGEXP}.collect{ |line| one_line_to_json(line) }.join(",\n")}}"
+    JSON.pretty_generate(
+      JSON.parse(
+        "{#{template_text.lines.reject{|line| line !~ NON_WHITESPACE_REGEXP}.collect{ |line| one_line_to_json(line) }.join(",\n")}}"
+      )
+    )
   end
 
 private

@@ -58,7 +58,7 @@ this template:
     array_expression: Array.new(3, 'hello')
     hash_literal: {a: 1, b: '2', 'c' => 3}
 
-will render JSON equivalent to:
+will render JSON equivalent to (ignoring whitespace differences):
 
     {
       "string_literal": "this is a string",
