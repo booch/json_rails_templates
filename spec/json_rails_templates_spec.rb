@@ -75,6 +75,17 @@ describe 'JsonRailsTemplates' do
       it { should == %({\n  "nested_hash_literal": {\n    "a": {\n      "b": {\n        "c": 3\n      }\n    }\n  }\n}) }
     end
 
+    context 'for nested contexts' do
+      let(:template_text) { %(nested_contexts:\n  child:\n    grandchild: 1\n) }
+      it { should == %({
+  "nested_contexts": {
+    "child": {
+      "grandchild": 1
+    }
+  }
+}) }
+    end
+
     context 'for multiple simple literals' do
       let(:template_text) { %(boolean_literal: false\ninteger_literal: 1) }
       it { should == %({\n  "boolean_literal": false,\n  "integer_literal": 1\n}) }
@@ -82,19 +93,22 @@ describe 'JsonRailsTemplates' do
 
     context 'everything put together' do
       let(:template_text) {%(
-        string_literal: 'this is a string'
-        string_expression: 'this is a string'.gsub('string', 'String!')
-        integer_literal: 123
-        integer_expression: 1 + 2
-        float_literal: 1.234
-        float_expression: Math::PI * 2
-        boolean_literal: true
-        boolean_expression: 'Craig' == 'Buchek'
-        null_literal: nil
-        array_literal: ['string', 123, 1.234, false]
-        array_expression: Array.new(3, 'hello')
-        hash_literal: {a: 1, b: '2', 'c' => 3}
-        nested_hash_literal: {a: {:b => {'c' => 3}}}
+string_literal: 'this is a string'
+string_expression: 'this is a string'.gsub('string', 'String!')
+integer_literal: 123
+integer_expression: 1 + 2
+float_literal: 1.234
+float_expression: Math::PI * 2
+boolean_literal: true
+boolean_expression: 'Craig' == 'Buchek'
+null_literal: nil
+array_literal: ['string', 123, 1.234, false]
+array_expression: Array.new(3, 'hello')
+hash_literal: {a: 1, b: '2', 'c' => 3}
+nested_contexts:
+  child:
+    grandchild: 1
+nested_hash_literal: {a: {:b => {'c' => 3}}}
       )}
       it { should == %({
   "string_literal": "this is a string",
@@ -121,6 +135,11 @@ describe 'JsonRailsTemplates' do
     "a": 1,
     "b": "2",
     "c": 3
+  },
+  "nested_contexts": {
+    "child": {
+      "grandchild": 1
+    }
   },
   "nested_hash_literal": {
     "a": {

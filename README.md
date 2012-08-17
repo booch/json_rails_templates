@@ -41,9 +41,7 @@ you have a few options:
 
 ## Example ##
 
-Assuming that ``@instance_variable`` is set to ``'instance variable'``
-and ``exposed_variable`` returns ``'exposed "variable"'``,
-this template:
+This template:
 
     string_literal: 'this is a string'
     string_expression: 'this is a string'.gsub('string', 'String!')
@@ -57,6 +55,9 @@ this template:
     array_literal: ['string', 123, 1.234, false]
     array_expression: Array.new(3, 'hello')
     hash_literal: {a: 1, b: '2', 'c' => 3}
+    nested_contexts:
+      child:
+        grandchild: 1
 
 will render JSON equivalent to (ignoring whitespace differences):
 
@@ -73,20 +74,22 @@ will render JSON equivalent to (ignoring whitespace differences):
       "array_literal": ["string", 123, 1.234, false],
       "array_expression": ["hello", "hello", "hello"],
       "hash_literal": { "a": 1, "b": "2", "c": 3 }
+      "nested_contexts": {
+        "child": {
+          "grandchild": 1
+        }
+      },
     }
 
 
 ## TODO ##
 
-1. Nested objects.
 1. Iterating over an array of objects, specifying how to render each.
 1. Compile templates instead of using `eval`.
 1. Integrate with tilt.
 
 Implement these translations:
 
-1. instance_variable: @instance_variable
-1. exposed_variable: exposed_variable
 1. hash expression
 1. object
 1. array of objects
