@@ -1,4 +1,5 @@
 require 'json'
+require_relative 'json_rails_templates/template'
 
 class JsonRailsTemplates
   WHITESPACE_REGEXP = %r(^[\s#{[0x3000].pack("U")}]*)  # 0x3000 = full-width whitespace (stolen from ActiveSupport)
