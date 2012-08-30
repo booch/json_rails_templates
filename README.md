@@ -104,6 +104,8 @@ Implement these translations:
 
 Consider these ideas:
 
+1. Allow a toggle to omit nil/null from being included in output.
+    - Could use a sigil when you really do want to include a nil/null: ``VisibleNull(nil)``
 1. Allow (or require) commas at end of each line.
 1. Use ``as_json`` where available for objects when there is no partial.
 1. Translate dates/times to strings automatically.
