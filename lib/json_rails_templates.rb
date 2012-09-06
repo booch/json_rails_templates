@@ -1,5 +1,4 @@
 require 'json'
-require_relative 'json_rails_templates/template'
 
 class JsonRailsTemplates
   WHITESPACE_REGEXP = %r(^[\s#{[0x3000].pack("U")}]*)  # 0x3000 = full-width whitespace (stolen from ActiveSupport)
@@ -53,3 +52,16 @@ class JsonRailsTemplates
     leading_spaces.size / 2
   end
 end
+
+
+require 'action_view'
+class JsonRailsTemplateHandler
+  def self.call(template)
+    new.call(template)
+  end
+
+  def call(template)
+    "'" + JsonRailsTemplates.new(template.source).to_json + "'"
+  end
+end
+ActionView::Template.register_template_handler :json, JsonRailsTemplateHandler

@@ -1,9 +1,14 @@
 require 'json_rails_templates'
 
+
 describe 'JsonRailsTemplates' do
   describe '.to_json' do
-    subject { JsonRailsTemplates.new(template_text).to_json }
+    subject { template.render(view_context, locals) }
     let(:template_text) { '' } # NOTE: We'll override this for each spec below.
+    let(:template) { ActionView::Template.new(template_text, 'TEST_FOR_JSON_RAILS_TEMPLATES', handler, format: :json) }
+    let(:handler) { ActionView::Template.handler_for_extension(:json) }
+    let(:locals) { {} } # Local variables for partials.
+    let(:view_context) { nil } # We don't need anything in the view context yet.
 
     context 'for blank lines' do
       let(:template_text) { "\n\n\n" }
