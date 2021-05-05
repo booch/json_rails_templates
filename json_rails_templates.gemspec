@@ -14,7 +14,7 @@ Gem::Specification.new do |s|
 
   s.rubyforge_project = "json_rails_templates"
 
-  s.add_dependency 'actionpack', '~> 3.2.8'
+  s.add_dependency 'actionpack', '>= 3.2.8', '< 6.2.0'
 
   s.add_development_dependency 'rspec', '~> 2.11'
 
